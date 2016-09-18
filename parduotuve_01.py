@@ -12,6 +12,17 @@ def vardas_kaina(adresas):
 		tekstas = name.string.strip()+"\t nera"
 	return tekstas
 
-target	="http://www.medialight.lt/component/hikashop/LED-produkcija/1-led-juosta-4-8w-silto-salto-spektro-ip33?Itemid=102"
-print(vardas_kaina(target))
 
+def produktai(adresas):
+	nr	= 0
+	html	= urlopen(adresas)
+	bsObj	= BeautifulSoup(html.read(),"lxml")
+	for linkas in bsObj.find_all('a',href=True):
+		if linkas.parent.name =="span" and "hikashop_product_name" in linkas.parent["class"]:
+			nr +=1
+			target= "http://www.medialight.lt"+linkas["href"]
+			print(nr,"\t",vardas_kaina(target))
+
+
+target	="http://www.medialight.lt/component/hikashop/LED/12-led-juostos?Itemid=102"
+produktai(target)
