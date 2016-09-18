@@ -7,9 +7,9 @@ def vardas_kaina(adresas):
 	name	= bsObj.find("span",{"id":"hikashop_product_name_main"})
 	price	= bsObj.find("span",{"class":"hikashop_product_price hikashop_product_price_0"})
 	try:
-		tekstas = name.string.strip()+"\t"+price.string
+		tekstas = name.string.strip()+"\n\t"+price.string+"\n"
 	except AttributeError:
-		tekstas = name.string.strip()+"\t nera"
+		tekstas = name.string.strip()+"\n\t Kainos nera\n"
 	return tekstas
 
 
