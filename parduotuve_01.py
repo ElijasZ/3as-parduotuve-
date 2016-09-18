@@ -23,6 +23,23 @@ def produktai(adresas):
 			target= "http://www.medialight.lt"+linkas["href"]
 			print(nr,"\t",vardas_kaina(target))
 
+def sarasas (adresas):
+	html	=urlopen(adresas)
+	bsObj	=BeautifulSoup(html.read(),"lxml")
+	ct	=0
+	for link in bsObj.find_all('a',href=True):
+		if link.parent.name == 'h4':
+			if ct==1:
+				print(100*"*",">>>")
+				target="http://www.medialight.lt"+link["href"]
+				produktai(target)
+				ct=0
+			else:
+				ct+=1
+#cia zaidziu su CT nes  puslapyje yra a su tusciais linkais
 
-target	="http://www.medialight.lt/component/hikashop/LED/12-led-juostos?Itemid=102"
-produktai(target)
+target	="http://www.medialight.lt/led-produkcija"
+sarasas(target)
+
+
+
